@@ -10,14 +10,27 @@ def main(page: ft.Page):
     page.window_always_on_top = True
     result = ft.Text(value="", color="#FFFFFF", size=30)
 
-
-    def calculate():
-        pass
-
-
     def keyboard(e):
-        pass
-    
+        data = e.control.data
+        print(data)
+
+        if data in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".", "+", "-", "*", "/"]:
+            result.value = str(result.value) + str(data)
+            page.update()
+
+        if data == "=":
+            result.value = str(eval(result.value))
+            page.update()
+
+        if data == "<":
+            st = list(result.value)
+            st.pop()
+            result.value = "".join(map(str,st))
+            page.update()
+
+        if data == "c":
+            result.value = ""
+            page.update()
 
     page.add(
         ft.Row(
@@ -30,7 +43,7 @@ def main(page: ft.Page):
             expand=1,
             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
             controls=[
-                ft.ElevatedButton(text="C", bgcolor="#000000", on_click=keyboard),
+                ft.ElevatedButton(text="C", bgcolor="#000000", data="c", on_click=keyboard),
                 ft.ElevatedButton(text="<", bgcolor="#000000", data="<", on_click=keyboard),
                 ft.ElevatedButton(text="+/-", bgcolor="#000000", data="+/-", on_click=keyboard),
                 ft.ElevatedButton(text="/", bgcolor="#000000", data="/", on_click=keyboard)]
