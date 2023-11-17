@@ -32,6 +32,14 @@ def main(page: ft.Page):
             result.value = ""
             page.update()
 
+        if data == "%":
+            result.value = int(result.value) / 100
+            page.update()
+
+        if data == "+/-":
+            result.value = -int(result.value)
+            page.update()
+
     page.add(
         ft.Row(
             width=300,
@@ -84,7 +92,7 @@ def main(page: ft.Page):
             expand=1,
             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
             controls=[
-                ft.ElevatedButton(text="%", bgcolor="#000000", data="/", on_click=keyboard),
+                ft.ElevatedButton(text="%", bgcolor="#000000", data="%", on_click=keyboard),
                 ft.ElevatedButton(text="0", bgcolor="#1C1C1C", data="0", on_click=keyboard),
                 ft.ElevatedButton(text=",", bgcolor="#000000", data=".", on_click=keyboard),
                 ft.ElevatedButton(text="=", bgcolor="#000000", data="=", on_click=keyboard)]
